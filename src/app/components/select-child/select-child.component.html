@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="top-bar">
+    <div class="title">Select Child Plan</div>
+    <ion-icon slot="end" name="close-outline" (click)="close()"></ion-icon>
+  </div>
+
+  <div
+    class="child-list"
+    *ngFor="let child of childs; index as idx"
+    (click)="select(idx)"
+    #selection>
+
+    <div *ngIf="!child.checked" class="circle"></div>
+
+    <div *ngIf="child.checked" class="circle-selected">
+      <ion-icon  name="checkmark-sharp"></ion-icon>
+    </div>
+
+    <div class="name">
+      {{ child.name }}
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar mode="ios" (click)="addPlans()">
+    <ion-title>Add Plans</ion-title>
+  </ion-toolbar>
+</ion-footer>

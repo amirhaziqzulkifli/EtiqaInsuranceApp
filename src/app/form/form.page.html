@@ -1,0 +1,215 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" name="chevron-back" [routerLink]="['/home']"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="planForm">
+    <div class="form-container">
+
+      <div class="main-plan-section">
+        <div class="title">
+          Select Plan
+        </div>
+  
+        <div class="selection-plan" >
+          <div 
+            class="each-plan" 
+            *ngFor="let plan of availablePlans | async; index as idx" 
+            (click)="selectPlan(idx)"
+            id="plan-{{idx}}" #plans>
+  
+            <div class="name">
+              {{plan.name}}
+            </div>
+  
+            <div class="circle">
+              <ion-icon *ngIf="plan.checked" name="checkmark-sharp"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="child-plan-section">
+        <div class="title">
+          Select Child Plan
+        </div>
+  
+        <div 
+          *ngFor="let each of childPlanFormArray.controls; index as idx" 
+          formArrayName="childPlan"
+          class="selected-container">
+
+          <div class="name">
+            {{each.get('name').value}}
+          </div>
+  
+          <div [formGroupName]="idx">
+            <div class="premium">
+              <div class="label">
+                Premium
+              </div>
+      
+              <div class="details">
+                Min Premium: {{priceValueToString(each.get('minPremium').value)}}<br>
+                Max Premium: {{priceValueToString(each.get('maxPremium').value)}}
+              </div>
+      
+              <ion-input 
+                type="number" 
+                inputmode="decimal" 
+                placeholder="00.00"
+                formControlName="premium">
+                RM
+              </ion-input>
+              <div *ngFor="let error of errorMessages.premium">
+                <ng-container *ngIf="each.get('premium').hasError(error.type) && (each.get('premium').dirty || each.get('premium').touched)">
+                  <span 
+                    *ngIf="each.get('premium').hasError('min')" 
+                    class="error-message">
+                    {{error.message}} {{each.get('minPremium').value}}
+                  </span>
+
+                  <span 
+                    *ngIf="each.get('premium').hasError('max')" 
+                    class="error-message">
+                    {{error.message}} {{each.get('maxPremium').value}}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+    
+            <div class="insured">
+              <div class="label">
+                Sum Insured
+              </div>
+      
+              <div class="details">
+                Min Sum Insured: {{priceValueToString(each.get('minSumInsured').value)}}<br>
+                Max Sum Insured: {{priceValueToString(each.get('maxSumInsured').value)}}
+              </div>
+      
+              <ion-input 
+                type="number" 
+                inputmode="decimal" 
+                placeholder="00.00"
+                formControlName="sumInsured">
+                RM
+              </ion-input>
+              <div *ngFor="let error of errorMessages.sumInsured">
+                <ng-container *ngIf="each.get('sumInsured').hasError(error.type) && (each.get('sumInsured').dirty || each.get('sumInsured').touched)">
+                  <span 
+                    *ngIf="each.get('sumInsured').hasError('min')" 
+                    class="error-message">
+                    {{error.message}} {{each.get('minSumInsured').value}}
+                  </span>
+
+                  <span 
+                    *ngIf="each.get('sumInsured').hasError('max')" 
+                    class="error-message">
+                    {{error.message}} {{each.get('maxSumInsured').value}}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+  
+        <div class="button" *ngIf="selectedPlanIdx !== null && childPlanFormArray.length === 0">
+          <ion-button (click)="addChildPlan()" id="trigger-button" expand="block" fill="solid">
+            + Add Child Plan
+          </ion-button>
+        </div>
+  
+        <div class="button" *ngIf="selectedPlanIdx === null">
+          <ion-button disabled="true" id="trigger-button" expand="block" fill="solid">
+            + Add Child Plan
+          </ion-button>
+        </div>
+
+        <div class="button-orange" *ngIf="selectedPlanIdx !== null && childPlanFormArray.length > 0">
+          <ion-button (click)="addChildPlan()" id="trigger-button" expand="block" fill="solid">
+            + Add Child Plan
+          </ion-button>
+        </div>
+      </div>
+  
+      <div class="dependant-section">
+        <div class="title">
+          Add Dependant
+        </div>
+  
+        <div 
+          *ngFor="let each of planForm.get('dependant')['controls']; index as idx" 
+          formArrayName="dependant"
+          class="selected-container">
+          <div class="name">
+            Dependant {{idx + 1}}
+          </div>
+  
+          <div [formGroupName]="idx">
+            <div class="first">
+              <div class="label">
+                Name
+              </div>
+      
+              <ion-input 
+                type="text" 
+                formControlName="name"
+                id="{{'name' + idx}}">
+              </ion-input>
+            </div>
+    
+            <div class="second" style="margin-top: 8px;">
+              <div class="label">
+                Age
+              </div>
+      
+              <ion-input 
+                type="number" 
+                formControlName="age"
+                id="{{'age' + idx}}">
+              </ion-input>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="dependantFormArray.length === 0" class="button">
+          <ion-button (click)="addDependant()" expand="block" fill="solid">
+            + Add Dependant
+          </ion-button>
+        </div>
+
+        <div *ngIf="dependantFormArray.length > 0" class="button-orange">
+          <ion-button (click)="addDependant()" expand="block" fill="solid">
+            + Add Dependant
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  
+    <hr>
+  
+    <div class="generate-container">
+      <ion-button 
+        *ngIf="!update"
+        (click)="submit()" 
+        expand="block" 
+        fill="solid"
+        [disabled]="planForm.invalid">
+        Generate Plan
+      </ion-button>
+
+      <ion-button 
+        *ngIf="update"
+        (click)="updateForm()" 
+        expand="block" 
+        fill="solid"
+        [disabled]="planForm.invalid">
+        Update Plan
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

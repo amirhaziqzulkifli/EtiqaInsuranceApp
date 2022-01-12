@@ -1,20 +1,72 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar mode="ios">
     <ion-title>
-      Blank
+      Insurance App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div *ngIf="(yourPlan | async)?.length > 0; else noPlan">
+    <div class="title">
+      Your Plans
+    </div>
+  
+    <div class="list" *ngFor="let plan of yourPlan | async; index as idx">
+      <div class="header">
+        <div class="name">
+          {{queryPlanByIdx(plan.selectedPlanIdx)}}
+        </div>
+        <div class="edit" (click)="updatePlan(plan.id)">Edit</div>
+      </div>
+      <div class="childs" *ngFor="let child of plan.childPlan">
+        <div class="each-child">
+          <div class="each-row">
+            <div class="left">
+              {{child.name}}
+            </div>
+            <div class="right">
+              {{price(child.premium)}}
+            </div>
+          </div>
+
+          <div class="each-row">
+            <div class="left">
+              Sum Insured
+            </div>
+            <div class="right">
+              {{price(child.sumInsured)}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dependant">
+        <div class="title-dep">
+          Dependants
+        </div>
+        <div class="each-row" *ngFor="let dependant of plan.dependant">
+          <div class="left">
+            {{dependant.name}}
+          </div>
+          <div class="right">
+            {{dependant.age}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <ng-template #noPlan>
+    <div id="container">
+      <p>You have not added any plans yet</p>
+    </div>
+  </ng-template>
+  
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar mode="ios" (click)="openForm()">
+    <ion-title>ADD PLAN</ion-title>
+  </ion-toolbar>
+</ion-footer>

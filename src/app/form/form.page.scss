@@ -1,0 +1,148 @@
+.title {
+    font-size: 20px;
+    font-family: 'SF Pro Semibold';
+}
+
+.form-container {
+    padding-left: 24px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+hr {
+    border-top: 1px solid rgb(190, 190, 190);
+    width: 100%;
+    margin: 0;
+}
+
+.generate-container {
+    width: 100%;
+    padding: 14px 24px;
+    
+    ion-button {
+        --background: rgb(0, 0, 0);
+        --color: orange;
+    }
+}
+
+.child-plan-section {
+    padding-right: 24px;
+    margin-bottom: 24px;
+}
+
+.dependant-section {
+    padding-right: 24px;
+}
+
+.selection-plan {
+    margin-top: 14px;
+    padding-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    // width: fit-content;
+
+    .each-plan {
+        border-radius: 8px;
+        border: 1px solid rgb(189, 189, 189);
+        margin-right: 14px;
+        display: flex;
+        align-items: center;
+        padding: 14px;
+
+        .name {
+            margin-right: 6px;
+            color: rgb(150, 150, 150);
+            display: flex;
+            max-height: 1.2rem;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .circle {
+            border-radius: 50%;
+            border: 1px solid rgb(180, 180, 180);
+            margin: auto;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px;
+
+            ion-icon {
+                --ionicon-stroke-width: 70px;
+                font-size: 16px;
+                color: white;
+            }
+        }
+    }
+}
+
+.button {
+    ion-button {
+        --background: rgb(216, 216, 216);
+        --color: rgb(88, 88, 88);
+        --background-activated: orange;
+        --background-hover: orange;
+        --color-activated: white;
+        --color-hover: white;
+        font-size: 14px;
+    }
+}
+
+.button-orange {
+    ion-button {
+        --background: orange;
+        --color: rgb(88, 88, 88);
+        --background-activated: orange;
+        --background-hover: orange;
+        --color-activated: white;
+        --color-hover: white;
+        font-size: 14px;
+    }
+}
+
+.selected-container {
+    padding: 14px;
+    background: rgb(243, 243, 243);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    margin-top: 4px;
+
+    .name {
+        font-family: 'SF Pro Semibold';
+        font-size: 18px;
+        padding-bottom: 8px;
+    }
+
+    .label {
+        font-family: 'SF Pro Regular';
+        font-size: 16px;
+        padding-bottom: 4px;
+    }
+
+    .details {
+        font-family: 'SF Pro Light';
+        font-size: 14px;
+        padding-bottom: 8px;
+    }
+    
+    .premium {
+        margin-bottom: 14px;
+    }
+
+    ion-input {
+        --background: white;
+        --color: black;
+        // --padding-start: 8px;
+        // --padding-bottom: 8px;
+    }
+}
+
+.error-message {
+    // margin-top: 10px;
+    color: rgb(255, 41, 41);
+    padding: 5px;
+    font-size: 12px;
+}

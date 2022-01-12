@@ -1,0 +1,59 @@
+ion-content {
+    --padding-top: 24px;
+    --padding-start: 14px;
+    --padding-end: 14px;
+
+    .top-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        ion-icon {
+            --ionicon-stroke-width: 34px;
+            font-size: 30px;
+        }
+    }
+
+    .child-list {
+        display: flex;
+        flex-direction: row;
+        padding: 14px 0 0 0;
+    }
+
+    .circle {
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgb(167, 167, 167);
+        display: flex;
+        align-items: center;
+        padding: 2px;
+    }
+
+    .circle-selected {
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgb(167, 167, 167);
+        display: flex;
+        align-items: center;
+        padding: 2px;
+        background: orange;
+
+        ion-icon {
+            --ionicon-stroke-width: 70px;
+            // font-size: 16px;
+            color: white;
+        }
+    }
+
+    .name {
+        margin-left: 10px;
+    }
+
+    .title {
+        font-family: "SF Pro Semibold";
+        font-size: 20px;
+    }
+}
